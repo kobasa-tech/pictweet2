@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'tweets#index'
+  # ルートパス(localhost:3000へのパス)を記述
+  resources :tweets, only: :index
+  # resourcesメソッドでルーティングを記述
+  # resources :コントローラー名, onlyオプション: :必要なアクション名
 end
+# ルーティングが作成できたらrails g controller コントローラー名(複数形) でコントローラーを作成
