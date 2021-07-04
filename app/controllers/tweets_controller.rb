@@ -5,4 +5,9 @@ class TweetsController < ApplicationController
     # 一覧表示画面に投稿された全てのツイートを並べたいのでindexアクションに記述している。
     # 1つのレコードにはハッシュの記述でカラム名: "値" がキーバリューで保存されている。<id: 1, name: "takashi", text: "Nice to meet you!",~>
   end
+
+  def new
+    @tweet = Tweet.new
+    # インスタンスを作成し@tweetに代入。form_withのヘルパーメソッドで使用する。
+  end
 end
