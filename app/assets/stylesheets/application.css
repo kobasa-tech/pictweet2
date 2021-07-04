@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+ 
+ /* *=はコメントアウトではなくSprocketsというGemの記法。
+ 13行目のrequire_treeは引数で与えられたディレクトリ以下のcssファイルをアルファベット順に読み込むという機能を持つ
+ ここでの引数は .(カレントディレクトリ)のためapp/assets/stylesheets内のcssファイルは全てこのapplication.cssに読み込まれる  */
