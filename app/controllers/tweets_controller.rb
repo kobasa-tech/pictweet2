@@ -17,9 +17,11 @@ class TweetsController < ApplicationController
   end
 
   def destroy
+    binding.pry
     tweet = Tweet.find(params[:id])
     # Tweetテーブルから送られてきたパラメータ(id番号)と一致するid番号のレコードを探して変数に代入している。
     # この変数はビューに表示させたりしないのでインスタンス変数でなくて良い。method: :deletelのink_toのパスからデータをもらっている。
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
     tweet.destroy
     # 一致したレコードを削除している。
   end
