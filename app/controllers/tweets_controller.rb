@@ -8,12 +8,22 @@ class TweetsController < ApplicationController
 
   def new
     @tweet = Tweet.new
-    # 空のインスタンスを作成し@tweetに代入。form_withのmodelオプションで使用する。
+    # Tweetテーブルに保存するために、空のインスタンスを作成し@tweetに代入。form_withのmodelオプションで使用する。
   end
 
   def create
     Tweet.create(tweet_params)
     # paramsで取得したデータをtweetsテーブルに保存している
+  end
+
+  def destroy
+    binding.pry
+    tweet = Tweet.find(params[:id])
+    # Tweetテーブルから送られてきたパラメータ(id番号)と一致するid番号のレコードを探して変数に代入している。
+    # この変数はビューに表示させたりしないのでインスタンス変数でなくて良い。method: :deletelのink_toのパスからデータをもらっている。
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
+    tweet.destroy
+    # 一致したレコードを削除している。
   end
 
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
@@ -23,6 +33,6 @@ class TweetsController < ApplicationController
     params.require(:tweet).permit(:name, :image, :text)
     # フォームから送られてきたパラメータを制限してparamsに取得させている。
     # requireメソッド require(:モデル名(シンボル)) permitメソッド permit(:キー(カラム名))
-    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/cKRn31VuxB+3C66XCeVR/+hiZrxW20l5vEBjC0jbvaMrte/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
   end
 end

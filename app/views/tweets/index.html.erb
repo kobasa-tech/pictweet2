@@ -4,6 +4,14 @@
   <%# @tweetsで取得したレコード1つ1つをeach文で取り出して、ブロック変数tweetに入れている %>
     <div class="content_post" style="background-image: url(<%= tweet.image %>);">
     <%# 1つのレコードはcontent_postクラスのdivに囲まれており、背景画像に投稿した画像を指定している。%>
+      <div class="more">
+        <span><%= image_tag 'arrow_top.png' %></span>
+        <%# image_tag 'ファイル名' app/assets/images/ディレクトリの矢印の画像を追加。 %>
+        <ul class="more_list">
+          <li><%= link_to '削除', tweet_path(tweet.id), method: :delete %></li>
+          <%# link_to '表示される文字列', 遷移先のパス(URLorPrefix)削除するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる, :get以外はmethod:の記述が必要 %>
+        </ul>
+      </div>
       <p><%= tweet.text %></p>
       <%# 投稿したテキストを表示している %>
       <span class="name">
