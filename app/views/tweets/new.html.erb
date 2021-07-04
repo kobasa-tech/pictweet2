@@ -4,12 +4,14 @@
     <h3>投稿する</h3>
     <%# ヘルパーメソッドform_withのmodelオプションにnewアクションで生成したインスタンスを指定している。
     modelオプションは指定したインスタンスが空ならcreateアクション、値が入っていればeditアクションに自動的に振り分ける。
-    またurlやmethodの記述が不要になる。 %>
+    またurlやmethodの記述が不要になる。local:trueは必要 %>
     <%= form_with(model: @tweet, local: true) do |form| %>
       <%= form.text_field :name, placeholder: "Nickname" %>
       <%= form.text_field :image, placeholder: "Image Url" %>
       <%= form.text_area :text, placeholder: "text", rows: "10" %>
+      <%# form.フォーム部品の種類 :パラメーターとして渡すname属性の値(シンボル)(キー名) :プレースホルダーオプション: "見本の文字列", rows: "文字数制限"%>
       <%= form.submit "SEND" %>
+      <%# form.submit "ボタンに表示される文字列" %>
     <% end %>
   </div>
 </div>
