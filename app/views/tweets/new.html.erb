@@ -1,0 +1,15 @@
+<div class="contents row">
+  <div class="container">
+  <%# 投稿ページをcontainerクラスのdivで囲う %>
+    <h3>投稿する</h3>
+    <%# ヘルパーメソッドform_withのmodelオプションにnewアクションで生成したインスタンスを指定している。
+    modelオプションは指定したインスタンスが空ならcreateアクション、値が入っていればeditアクションに自動的に振り分ける。
+    またurlやmethodの記述が不要になる。 %>
+    <%= form_with(model: @tweet, local: true) do |form| %>
+      <%= form.text_field :name, placeholder: "Nickname" %>
+      <%= form.text_field :image, placeholder: "Image Url" %>
+      <%= form.text_area :text, placeholder: "text", rows: "10" %>
+      <%= form.submit "SEND" %>
+    <% end %>
+  </div>
+</div>
