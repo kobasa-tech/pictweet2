@@ -1,0 +1,15 @@
+<%# contentsクラスのdivの中に@tweetsで取得した全てのレコードを表示している %>
+<div class="contents row">
+  <% @tweets.each do |tweet| %>
+  <%# @tweetsで取得したレコード1つ1つをeach文で取り出して、ブロック変数tweetに入れている %>
+    <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+    <%# 1つのレコードはcontent_postクラスのdivに囲まれており、背景画像に投稿した画像を指定している。%>
+      <p><%= tweet.text %></p>
+      <%# 投稿したテキストを表示している %>
+      <span class="name">
+        <%= tweet.name %>
+        <%# 投稿したユーザーを表示している。レイアウトやリンクようにspanで囲っている。 %>
+      </span>
+    </div>
+  <% end  %>
+</div>

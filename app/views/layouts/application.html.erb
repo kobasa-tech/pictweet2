@@ -6,10 +6,27 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# stylesheet_link_tag 'cssファイル名' と記述することでapp/assets/stylesheets/ディレクトリの中のcssファイルを読み込んでいる。 %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%# どのページでも表示されるheader部分を記述 %>
+    <header class="header">
+      <div class="header__bar row">
+      <%# ロゴと投稿ページへのリンクを仮置き %>
+        <h1 class="grid-6"><a href="/">PicTweet2</a></h1>
+        <div class="user_nav grid-6">
+          <a class="post" href="/tweets/new">投稿する</a>
+        </div>
+      </div>
+    </header>
+
     <%= yield %>
+
+    <%# どのページでも表示されるfooter部分を記述 %>
+    <footer>
+      <p>Copyright PicTweet2 2021</p>
+    </footer>
   </body>
 </html>

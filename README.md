@@ -17,8 +17,8 @@
 
 | Colum | Type   | Options     |
 | ----- | ------ | ----------- |
-| text  | text   | null: false |
-| img   | string |             |
+| text  | string | null: false |
+| img   | text   |             |
 
 ### Association
 
