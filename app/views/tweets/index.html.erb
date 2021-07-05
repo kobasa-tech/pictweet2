@@ -8,6 +8,8 @@
         <span><%= image_tag 'arrow_top.png' %></span>
         <%# image_tag 'ファイル名' app/assets/images/ディレクトリの矢印の画像を追加。 %>
         <ul class="more_list">
+          <li><%= link_to '編集', edit_tweet_path(tweet.id), method: :get %></li>
+          <%# 編集するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる %>
           <li><%= link_to '削除', tweet_path(tweet.id), method: :delete %></li>
           <%# link_to '表示される文字列', 遷移先のパス(URLorPrefix)削除するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる, :get以外はmethod:の記述が必要 %>
         </ul>

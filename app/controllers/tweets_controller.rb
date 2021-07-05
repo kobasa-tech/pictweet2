@@ -17,13 +17,30 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    binding.pry
     tweet = Tweet.find(params[:id])
     # Tweetテーブルから送られてきたパラメータ(id番号)と一致するid番号のレコードを探して変数に代入している。
     # この変数はビューに表示させたりしないのでインスタンス変数でなくて良い。method: :deletelのink_toのパスからデータをもらっている。
     # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
     tweet.destroy
     # 一致したレコードを削除している。
+  end
+
+  def edit
+    @tweet = Tweet.find(params[:id])
+    # 編集機能の場合は最初からツイートの内容が表示されており、それを編集するという作業になるので投稿時のデータが必要になる。
+    # 送られてきたデータのidの値と一致するidのレコードをTweetテーブルから探して、インスタンス変数に代入している。
+    # ビューで使用するのでインスタンス変数にする必要がある。
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
+  end
+
+  def update
+    tweet = Tweet.find(params[:id])
+    # ビューに表示させないので変数に代入。まずはモデルオプションから送られてきたidのデータを元にテーブルからidの一致したレコードを取得している。
+    # editでも同じように取得しているが、そちらはあくまで編集画面に表示するため。こちらは更新元の特定をしている。
+    tweet.update(tweet_params)
+    # 取得したレコードをupdateメソッドを使用し送られてきたデータで上書きする。モデルのインスタンス.update(更新データ)
+    # 更新できなかった場合の処理は後ほど。現在ではテキストが空で入力してもupdateビューに跳ぶがバリデーションがあるため更新されていない。
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
   end
 
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
