@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'tweets#index'
   # ルートパス(localhost:3000へのパス)を記述
   resources :tweets
