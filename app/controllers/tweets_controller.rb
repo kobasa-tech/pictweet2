@@ -2,6 +2,9 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: [:edit, :show]
   # before_action :メソッド名(シンボル), only: :アクション名(シンボル)
   # と記述することで指定したアクションの実行前に指定したメソッドの処理が実行される
+  before_action :move_to_index, except: [:index, :show]
+  # exceptオプションでメソッドを実行しないアクションを指定している。
+  # indexアクションを指定しないと永遠にindexアクションへのリダイレクトを繰り返してしまう。
 
   def index
     @tweets = Tweet.all
@@ -61,5 +64,14 @@ class TweetsController < ApplicationController
     # 選択されたツイートのid(送られてきたデータ)と一致するidのレコードをテーブルから探し出し、インスタンス変数に代入している。
     # 詳細表示や編集画面では選択されたツイートの情報をビューに表示するのでインスタンス変数が必要。
     # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
+  end
+
+  def move_to_index
+        # show・editアクションを除くbefore_actionで使用。
+    unless user_signed_in?
+      # user_signed_in?がfalse(サインインしていない)の時実行
+      redirect_to action: :index
+      # indexアクションに転送する。
+    end
   end
 end
