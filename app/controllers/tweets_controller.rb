@@ -43,6 +43,12 @@ class TweetsController < ApplicationController
     # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
   end
 
+  def show
+    @tweet = Tweet.find(params[:id])
+    # 選択されたツイートのidと一致するレコードをテーブルから探し出し、インスタンス変数に代入している。
+    # 詳細表示ではインスタンス選択されたツイートの画面を表示するのでインスタンス変数が必要
+  end
+
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
   private
   # private以下はクラス外(tweetsコントローラー以外)から呼び出せなくなる。
