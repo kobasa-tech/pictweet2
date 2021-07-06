@@ -1,4 +1,8 @@
 class TweetsController < ApplicationController
+  before_action :set_tweet, only: [:edit, :show]
+  # before_action :メソッド名(シンボル), only: :アクション名(シンボル)
+  # と記述することで指定したアクションの実行前に指定したメソッドの処理が実行される
+
   def index
     @tweets = Tweet.all
     # インスタンス変数@tweets(複数のレコードが入るので複数形)にTweetモデルのテーブルレコード全てを代入。
@@ -26,11 +30,6 @@ class TweetsController < ApplicationController
   end
 
   def edit
-    @tweet = Tweet.find(params[:id])
-    # 編集機能の場合は最初からツイートの内容が表示されており、それを編集するという作業になるので投稿時のデータが必要になる。
-    # 送られてきたデータのidの値と一致するidのレコードをTweetテーブルから探して、インスタンス変数に代入している。
-    # ビューで使用するのでインスタンス変数にする必要がある。
-    # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
   end
 
   def update
@@ -43,6 +42,9 @@ class TweetsController < ApplicationController
     # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
   end
 
+  def show
+  end
+
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
   private
   # private以下はクラス外(tweetsコントローラー以外)から呼び出せなくなる。
@@ -51,5 +53,13 @@ class TweetsController < ApplicationController
     # フォームから送られてきたパラメータを制限してparamsに取得させている。
     # requireメソッド require(:モデル名(シンボル)) permitメソッド permit(:キー(カラム名))
     # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
+  end
+
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+    # show・editアクションのbefore_actionで使用。
+    # 選択されたツイートのid(送られてきたデータ)と一致するidのレコードをテーブルから探し出し、インスタンス変数に代入している。
+    # 詳細表示や編集画面では選択されたツイートの情報をビューに表示するのでインスタンス変数が必要。
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"PbJCidedTv7ZSdFwP35MlScmr1ha0KK3lE5UaPZ1dImPxQ+80eKi+qiUGv6/BdYTtRzeiNIOk4v93LIxk52Udg==", "id"=>"5"}
   end
 end
