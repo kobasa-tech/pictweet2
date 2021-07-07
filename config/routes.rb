@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :tweets
   # resourcesメソッドでルーティングを記述
   # resources :コントローラー名, onlyオプション: :必要なアクション名(シンボル)
+  resources :users, only: :show
+  # ユーザーマイページを実装するためにのusersコントローラーのshowアクションのルーティングを設定
 end
 # ルーティングが作成できたらrails g controller コントローラー名(複数形) でコントローラーを作成

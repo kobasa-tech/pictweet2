@@ -7,10 +7,15 @@ class TweetsController < ApplicationController
   # indexアクションを指定しないと永遠にindexアクションへのリダイレクトを繰り返してしまう。
 
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.includes(:user) # モデル名.includes(:紐づくモデル名(単数形のシンボル))
     # インスタンス変数@tweets(複数のレコードが入るので複数形)にTweetモデルのテーブルレコード全てを代入。
     # 一覧表示画面に投稿された全てのツイートを並べたいのでindexアクションに記述している。
     # 1つのレコードにはハッシュの記述でカラム名: "値" がキーバリューで保存されている。<id: 1, name: "takashi", text: "Nice to meet you!",~>
+
+    # @tweets = Tweet.all ではtweetsテーブルを取得した後、usersテーブルのレコードごとに投稿したツイート情報を確認する処理が発生してしまう。
+    # これをN+1問題という。これを回避するためにincludesメソッドを使用して、
+    # tweetsテーブルの全データを取得。tweetsテーブルに紐づく(user_id)usersテーブルのデータを取得。の2回で処理が済むようにしている。
+    # includesメソッドでテーブルの全データを取得するため .allは不要。
   end
 
   def new
@@ -52,10 +57,11 @@ class TweetsController < ApplicationController
   private
   # private以下はクラス外(tweetsコントローラー以外)から呼び出せなくなる。
   def tweet_params
-    params.require(:tweet).permit(:name, :image, :text)
-    # フォームから送られてきたパラメータを制限してparamsに取得させている。
+    params.require(:tweet).permit(:image, :text).merge(user_id: current_user.id) # nameのパラメーターが不要に
+    # フォームから送られてきたツイート時のパラメータを制限してparamsに取得させている。
+    # さらにどのユーザーのツイートか判断できるようにmergeメソッドでハッシュ状のparamsに{user_id(キー): ログインしているユーザーのid(バリュー)}を結合している
     # requireメソッド require(:モデル名(シンボル)) permitメソッド permit(:キー(カラム名))
-    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認", "user_id"=>"1"}, "commit"=>"SEND"}
   end
 
   def set_tweet
