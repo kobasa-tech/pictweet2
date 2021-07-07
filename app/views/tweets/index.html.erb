@@ -18,7 +18,7 @@
       <p><%= tweet.text %></p>
       <%# 投稿したテキストを表示している %>
       <span class="name">
-        <a href="">
+        <a href="/users/<%= tweet.user.id %>" > <%# ツイートを投稿したユーザーのshowアクションへのパスは "/users/ツイートしたユーザーのidの値" %>
           <span>投稿者</span><%= tweet.user.nickname %>
         </a>
         <%# Tweetモデルはアソシエーションにより、一人のユーザーに属しているため、
