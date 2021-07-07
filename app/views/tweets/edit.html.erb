@@ -4,7 +4,7 @@
     <h3>編集する</h3>
     <%= form_with(model: @tweet, local: true) do |form| %>
     <%# editアクションの@tweetには値が入っているためmodelオプションではupdateアクション宛にデータを送る。 %>
-      <%= form.text_field :name, placeholder: "Nickname" %>
+      <%# ツイートにユーザー名が表示されるように変更したので編集時のニックネーム欄は不要。 %>
       <%= form.text_field :image, placeholder: "Image Url" %>
       <%= form.text_area :text, placeholder: "text", rows: "10" %>
       <%= form.submit "SEND" %>

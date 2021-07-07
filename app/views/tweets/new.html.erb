@@ -6,7 +6,7 @@
     modelオプションは指定したインスタンスが空ならcreateアクション、値が入っていればeditアクションに自動的に振り分ける。
     またurlやmethodの記述が不要になる。local:trueは必要 %>
     <%= form_with(model: @tweet, local: true) do |form| %>
-      <%= form.text_field :name, placeholder: "Nickname" %>
+      <%# ツイートにユーザー名が表示されるように変更したので投稿時のニックネーム欄は不要。 %>
       <%= form.text_field :image, placeholder: "Image Url" %>
       <%= form.text_area :text, placeholder: "text", rows: "10" %>
       <%# form.フォーム部品の種類 :パラメーターとして渡すname属性の値(シンボル)(キー名) :プレースホルダーオプション: "見本の文字列", rows: "文字数制限"%>
