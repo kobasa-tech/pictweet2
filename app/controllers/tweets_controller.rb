@@ -7,10 +7,15 @@ class TweetsController < ApplicationController
   # indexアクションを指定しないと永遠にindexアクションへのリダイレクトを繰り返してしまう。
 
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.includes(:user) # モデル名.includes(:紐づくモデル名(単数形のシンボル))
     # インスタンス変数@tweets(複数のレコードが入るので複数形)にTweetモデルのテーブルレコード全てを代入。
     # 一覧表示画面に投稿された全てのツイートを並べたいのでindexアクションに記述している。
     # 1つのレコードにはハッシュの記述でカラム名: "値" がキーバリューで保存されている。<id: 1, name: "takashi", text: "Nice to meet you!",~>
+
+    # @tweets = Tweet.all ではtweetsテーブルを取得した後、usersテーブルのレコードごとに投稿したツイート情報を確認する処理が発生してしまう。
+    # これをN+1問題という。これを回避するためにincludesメソッドを使用して、
+    # tweetsテーブルの全データを取得。tweetsテーブルに紐づく(user_id)usersテーブルのデータを取得。の2回で処理が済むようにしている。
+    # includesメソッドでテーブルの全データを取得するため .allは不要。
   end
 
   def new
