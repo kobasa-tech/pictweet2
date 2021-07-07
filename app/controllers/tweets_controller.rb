@@ -52,10 +52,10 @@ class TweetsController < ApplicationController
   private
   # private以下はクラス外(tweetsコントローラー以外)から呼び出せなくなる。
   def tweet_params
-    params.require(:tweet).permit(:name, :image, :text)
-    # フォームから送られてきたパラメータを制限してparamsに取得させている。
+    params.require(:tweet).permit(:name, :image, :text).merge(user_id: current_user.id)
+    # フォームから送られてきたパラメータを制限してparamsに取得させている。さらにmergeメソッドでハッシュ状のparamsに{user_id(キー): ログインしているユーザーのid(バリュー)}を結合している
     # requireメソッド require(:モデル名(シンボル)) permitメソッド permit(:キー(カラム名))
-    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認"}, "commit"=>"SEND"}
+    # 送られてきたデータ Parameters: {"authenticity_token"=>"i7BS6y/~略~/GuPTlKlkd7fTeawTDsa0GIfKjCC+GBBw==", "tweet"=>{"name"=>"勉強男", "image"=>"", "text"=>"パラメータ確認", "user_id"=>"1"}, "commit"=>"SEND"}
   end
 
   def set_tweet
