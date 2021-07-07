@@ -14,7 +14,10 @@
       </ul>
     </div>
     <p><%= @tweet.text %></p>
-    <span class="name"><%= @tweet.name %>
+    <span class="name">
+      <a href="/users/<%= @tweet.user.id %>"><%# ツイートを投稿したユーザーのマイページへのリンク %>
+        <span>投稿者</span><%= @tweet.user.nickname %><%# ツイートを投稿したユーザーのニックネームを表示 %>
+      </a>
     </span>
   </div>
 </div>
