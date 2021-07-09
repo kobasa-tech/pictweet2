@@ -1,9 +1,4 @@
 <div class="contents row">
   <p><%= @nickname %>さんの投稿一覧</p>
-  <% @tweets.each do |tweet| %>
-    <div class="content_post" style="background-image: url(<%= tweet.image %>);">
-      <p><%= tweet.text %></p>
-      <%# 投稿者のマイページなのでツイートの投稿者名は不要。 %>
-    </div>
-  <% end %>
+    <%= render @tweets %>
 </div>
