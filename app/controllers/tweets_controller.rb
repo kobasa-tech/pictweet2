@@ -7,7 +7,9 @@ class TweetsController < ApplicationController
   # indexアクションを指定しないと永遠にindexアクションへのリダイレクトを繰り返してしまう。
 
   def index
-    @tweets = Tweet.includes(:user) # モデル名.includes(:紐づくモデル名(単数形のシンボル))
+    @tweets = Tweet.includes(:user).order("created_at DESC")
+    # モデル名.includes(:紐づくモデル名(単数形のシンボル))
+    # order("基準とするカラム名 並び順") orderメソッドを追記して、取得したレコードを新しく投稿された順(created_atカラムが降順)に並べている
     # インスタンス変数@tweets(複数のレコードが入るので複数形)にTweetモデルのテーブルレコード全てを代入。
     # 一覧表示画面に投稿された全てのツイートを並べたいのでindexアクションに記述している。
     # 1つのレコードにはハッシュの記述でカラム名: "値" がキーバリューで保存されている。<id: 1, name: "takashi", text: "Nice to meet you!",~>
