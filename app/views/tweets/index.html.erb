@@ -9,10 +9,14 @@
         <%# image_tag 'ファイル名' app/assets/images/ディレクトリの矢印の画像を追加。 %>
         <ul class="more_list">
           <li><%= link_to '詳細', tweet_path(tweet.id), method: :get %></li>
-          <li><%= link_to '編集', edit_tweet_path(tweet.id), method: :get %></li>
-          <%# 編集するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる %>
-          <li><%= link_to '削除', tweet_path(tweet.id), method: :delete %></li>
-          <%# link_to '表示される文字列', 遷移先のパス(URLorPrefix)削除するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる, :get以外はmethod:の記述が必要 %>
+          <% if user_signed_in? && current_user.id == tweet.user_id %>
+          <%# 「ユーザーがサインイン状態かつ、ツイートが自分の投稿であれば」編集と削除ボタンを表示させている。
+          条件に当てはまらなくても詳細ボタンは表示される。if文の外側なので。 %>
+            <li><%= link_to '編集', edit_tweet_path(tweet.id), method: :get %></li>
+            <%# 編集するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる %>
+            <li><%= link_to '削除', tweet_path(tweet.id), method: :delete %></li>
+            <%# link_to '表示される文字列', 遷移先のパス(URLorPrefix)削除するツイートを区別するためにブロック変数tweetのidをパラメーターに持たせる, :get以外はmethod:の記述が必要 %>
+          <% end %>
         </ul>
       </div>
       <p><%= tweet.text %></p>

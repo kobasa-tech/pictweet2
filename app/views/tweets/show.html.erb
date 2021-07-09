@@ -1,18 +1,21 @@
 <div class="contents row">
 <%# indexビューと似ているが選択した1つのツイートを表示しているためeachは不要。 %>
   <div class="content_post" style="background-image: url(<%= @tweet.image %>);">
-    <div class="more">
-      <span><%= image_tag 'arrow_top.png' %></span>
-      <ul class="more_list">
-      <%# 詳細画面なので詳細ボタンは不要 %>
-        <li>
-          <%= link_to '編集', edit_tweet_path(@tweet.id), method: :get %>
-        </li>
-        <li>
-          <%= link_to '削除', tweet_path(@tweet.id), method: :delete %>
-        </li>
-      </ul>
-    </div>
+    <% if user_signed_in? && current_user.id == @tweet.user_id %>
+    <%# 詳細画面では条件に当てはまらなければボタン表示も不要なのでindexとif文で囲む範囲が異なる。 %>
+      <div class="more">
+        <span><%= image_tag 'arrow_top.png' %></span>
+        <ul class="more_list">
+        <%# 詳細画面なので詳細ボタンは不要 %>
+          <li>
+            <%= link_to '編集', edit_tweet_path(@tweet.id), method: :get %>
+          </li>
+          <li>
+            <%= link_to '削除', tweet_path(@tweet.id), method: :delete %>
+          </li>
+        </ul>
+      </div>
+    <% end  %>
     <p><%= @tweet.text %></p>
     <span class="name">
       <a href="/users/<%= @tweet.user.id %>"><%# ツイートを投稿したユーザーのマイページへのリンク %>
