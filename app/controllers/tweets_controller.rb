@@ -2,8 +2,8 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: [:edit, :show]
   # before_action :メソッド名(シンボル), only: :アクション名(シンボル)
   # と記述することで指定したアクションの実行前に指定したメソッドの処理が実行される
-  before_action :move_to_index, except: [:index, :show]
-  # exceptオプションでメソッドを実行しないアクションを指定している。
+  before_action :move_to_index, except: [:index, :show, :search]
+  # exceptオプションでmove_to_indexメソッドを実行しないアクションを指定している(ログインしていなくても閲覧できるもの)。
   # indexアクションを指定しないと永遠にindexアクションへのリダイレクトを繰り返してしまう。
 
   def index
@@ -60,6 +60,11 @@ class TweetsController < ApplicationController
     # 選択しているツイートが持っているコメントテーブルの全てのレコードを取得しインスタンス変数@commentsに代入。
     # Tweet has_many :commentsのアソシエーションのためこのような記述で取得できる。
     # 誰のコメントかを明らかにするためusersテーブルのレコードを取得するのでincludesメソッドでN+1問題を回避する記述。
+  end
+
+  def search
+    @tweets = Tweet.search(params[:keyword])
+    # 引数としてkeywordをキーとする値(検索フォームに入力した値)をsearchメソッドに渡し、返り値を全て取得してインスタンス変数に代入。
   end
 
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
