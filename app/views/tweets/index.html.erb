@@ -1,6 +1,7 @@
 <%# 検索フォームの追加 %>
 <%= form_with(url: search_tweets_path, local: true, method: :get, class: "search-form") do |form| %>
   <%= form.text_field :keywords, placeholder: "投稿を検索する", class: "search-input" %>
+  <%# パラメーターに"keywords"=>"フォームに入力した値"を含む %>
   <%= form.submit "検索", class: "search-btn" %>
 <% end %>
 <%# contentsクラスのdivの中に@tweetsで取得した全てのレコードを表示している %>
