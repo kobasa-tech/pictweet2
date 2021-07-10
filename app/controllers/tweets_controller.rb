@@ -64,7 +64,7 @@ class TweetsController < ApplicationController
 
   def search
     @tweets = Tweet.search(params[:keyword])
-    # 引数としてkeywordをキーとする値(検索フォームに入力した値)をsearchメソッドに渡し、返り値を全て取得してインスタンス変数に代入。
+    # 引数としてkeywordをキーとする値(検索フォームに入力した値)をクラスメソッドsearchに渡し、返り値を全て取得してインスタンス変数に代入。
   end
 
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成
