@@ -57,7 +57,7 @@ class TweetsController < ApplicationController
     # コメント投稿を投稿すると、Commentコントローラーのcreateアクションが実行されるリクエストを記述
     # tweetのビューなのでtweetコントローラーに記述する必要がある。
     @comments = @tweet.comments.includes(:user)
-    # 選択しているツイートが持っているコメント全てを取得しインスタンス変数@commentsに代入。
+    # 選択しているツイートが持っているコメントテーブルの全てのレコードを取得しインスタンス変数@commentsに代入。
     # Tweet has_many :commentsのアソシエーションのためこのような記述で取得できる。
     # 誰のコメントかを明らかにするためusersテーブルのレコードを取得するのでincludesメソッドでN+1問題を回避する記述。
   end
