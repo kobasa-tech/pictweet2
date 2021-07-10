@@ -35,5 +35,15 @@
     <%# 未ログイン時はコメントフォームは表示されない %>
       <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
     <% end %>
+    <div class="comments">
+      <h4>＜コメント一覧＞</h4>
+      <% @comments.each do |comment| %>
+        <p>
+          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+          <%# #{comment.user_id}と記述することでユーザーのidをparamsで扱える。 %>
+          <%= comment.text %>
+        </p>
+      <% end %>
+    </div>
   </div>
 </div>
