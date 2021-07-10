@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :comments, only: :create
     # ルーティングをネストすることでtweetのidをcommentsコントローラーに送れる
     # ralis routesのURI /tweets/:tweet_id/comments(.:format)
+    collection do
+      get 'search'
+      # 詳細表示(:id)が不要のためcollectionでオリジナルルーティングを作成。
+      # ツイートの検索をする機能なのでtweets(親要素)にネストして(子要素)として記述。
+      # ralis routesのURI  /tweets/searh(.:format)
+    end
   end
   # resourcesメソッドでルーティングを記述
   # resources :コントローラー名, onlyオプション: :必要なアクション名(シンボル)
