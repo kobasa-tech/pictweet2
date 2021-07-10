@@ -4,5 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :tweets
-  # アソシエーションの設定。ユーザー対ツイートは1対他の関係
+  has_many :comments
+  # アソシエーションの設定。ユーザー対ツイート,ユーザー対コメントは1対多の関係
 end

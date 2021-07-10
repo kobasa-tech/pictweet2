@@ -53,6 +53,13 @@ class TweetsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    # コメント投稿を投稿すると、Commentコントローラーのcreateアクションが実行されるリクエストを記述
+    # tweetのビューなのでtweetコントローラーに記述する必要がある。
+    @comments = @tweet.comments.includes(:user)
+    # 選択しているツイートが持っているコメントテーブルの全てのレコードを取得しインスタンス変数@commentsに代入。
+    # Tweet has_many :commentsのアソシエーションのためこのような記述で取得できる。
+    # 誰のコメントかを明らかにするためusersテーブルのレコードを取得するのでincludesメソッドでN+1問題を回避する記述。
   end
 
   # 以下ストロングパラメーター(意図しないデータベースの読み書きを防ぐための記述)private・require・permitで構成

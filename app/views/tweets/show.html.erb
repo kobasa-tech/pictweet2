@@ -23,4 +23,27 @@
       </a>
     </span>
   </div>
+  <div class="container">
+    <% if user_signed_in? %>
+    <%# ログインしている時はコメント投稿フォームを表示させる %>
+      <%= form_with(model: [@tweet, @comment], local: true) do |form| %>
+      <%# ルーティングでネストをしているため、model: [@親, @子]という記述になる %>
+        <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
+        <%= form.submit "SEND" %>
+      <% end %>
+    <% else %>
+    <%# 未ログイン時はコメントフォームは表示されない %>
+      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+    <% end %>
+    <div class="comments">
+      <h4>＜コメント一覧＞</h4>
+      <% @comments.each do |comment| %>
+        <p>
+          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+          <%# #{comment.user_id}と記述することでユーザーのidをparamsで扱える。 %>
+          <%= comment.text %>
+        </p>
+      <% end %>
+    </div>
+  </div>
 </div>
